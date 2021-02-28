@@ -30,8 +30,18 @@ function generatePeople(data) {
     data.forEach( person => {
         const personBox = document.createElement('div');
         gallery.appendChild(personBox);
-        personBox.insertAdjacentHTML('beforeend',
-            `<div id="two">${person.gender}</div>`)
+        personBox.insertAdjacentHTML('beforeend', `
+            <div class="card">
+                <div class="card-img-container">
+                        <img class="card-img" src="https://placehold.it/90x90" alt="profile picture">
+                    </div>
+                    <div class="card-info-container">
+                        <h3 id="name" class="card-name cap">${person.name.first} ${person.name.last}</h3>
+                        <p class="card-text">${person.email}</p>
+                        <p class="card-text cap">${person.location.city}, ${person.location.state}</p>
+                    </div> 
+            </div>
+        `)
     });
 }
 
