@@ -1,5 +1,6 @@
 const userGenerator = 'https://randomuser.me/api/?results=12';
 const fetchUsers = getUsers(userGenerator);
+const gallery = document.getElementById('gallery');
 
 // Handle fetch request
 async function getJSON(url) {
@@ -22,12 +23,15 @@ async function getUsers(url) {
     generatePeople(usersArray);
 }
 
+// Callback called when data ready
 function generatePeople(data) {
-    const date = data[0].dob.date;
-    console.log(date)
-    // const options = data.map(item => `
-    // <option value='${item}'>${item}</option>
-    // `).join('');
-    // select.innerHTML = options;
+    const gender = data[0].gender;
+    console.log(gender);
+    data.map( usersArray => {
+        const personBox = document.createElement('div');
+        gallery.appendChild(personBox);
+        personBox.insertAdjacentHTML('beforeend',
+            '<div id="two">${gender}</div>')
+    });
 }
 
