@@ -25,13 +25,13 @@ async function getUsers(url) {
 
 // Callback called when data ready
 function generatePeople(data) {
-    const gender = data[0].gender;
-    console.log(gender);
-    data.map( usersArray => {
+    // const gender = data[0].gender;
+    // console.log(gender);
+    data.forEach( person => {
         const personBox = document.createElement('div');
         gallery.appendChild(personBox);
         personBox.insertAdjacentHTML('beforeend',
-            '<div id="two">${gender}</div>')
+            `<div id="two">${person.gender}</div>`)
     });
 }
 
