@@ -1,9 +1,7 @@
 const userGenerator = 'https://randomuser.me/api/?results=12';
-const promiseToParse = getUsers(userGenerator)
+const fetchUsers = getUsers(userGenerator);
 
-
-
-// Handle all fetch requests
+// Handle fetch request
 async function getJSON(url) {
     try {
         const response = await fetch(url);
@@ -12,17 +10,24 @@ async function getJSON(url) {
         throw error;
     }
 }
-const usersArray = [];
 
 // Get users from API and create array
 async function getUsers(url) {
+    let usersArray = []
     const peopleJSON = await getJSON(url);
-
     const results = peopleJSON.results;
     for (let i = 0; i < results.length; i++){
         usersArray.push(results[i])
     }
+    generatePeople(usersArray);
 }
 
-
+function generatePeople(data) {
+    const date = data[0].dob.date;
+    console.log(date)
+    // const options = data.map(item => `
+    // <option value='${item}'>${item}</option>
+    // `).join('');
+    // select.innerHTML = options;
+}
 
