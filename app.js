@@ -2,7 +2,7 @@ const userGenerator = 'https://randomuser.me/api/?results=12';
 const fetchUsers = getUsers(userGenerator);
 const body = document.getElementsByTagName('body');
 const gallery = document.getElementById('gallery');
-const cardToClick = document.getElementsByClassName('card');
+
 
 
 // Handle fetch request
@@ -30,7 +30,7 @@ async function getUsers(url) {
 // Callback called when data ready
 function generatePeople(data) {
     // const gender = data[0].gender;
-    console.log(data);
+    //console.log(data);
     data.forEach( person => {
         const personBox = document.createElement('div');
         gallery.appendChild(personBox);
@@ -49,8 +49,7 @@ function generatePeople(data) {
     });
 }
 
-function generateCloseUp(data, event) {
-    console.log(event.target);
+function generateCloseUp(data) {
     console.log(data);
     const closeUp = document.createElement('div');
     gallery.appendChild(closeUp);
@@ -73,10 +72,11 @@ function generateCloseUp(data, event) {
 }
 
 function addClickHandler(data) {
-    document.querySelectorAll('.card').forEach( card =>
-        card.addEventListener('click', (event) => {
-            console.log(card);
-            generateCloseUp(data, event);
+    const cardToClick = document.querySelectorAll('.card');
+    cardToClick.forEach( (card, index)  =>
+        card.addEventListener('click', () => {
+            // console.log(card);
+            generateCloseUp(data[index]);
         })
     );
 }
