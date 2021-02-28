@@ -1,28 +1,33 @@
 const userGenerator = 'https://randomuser.me/api/?results=12';
-const promiseToParse = getUsers(userGenerator)
+const select = document.getElementById('test');
 
-
-
-// Handle all fetch requests
-async function getJSON(url) {
-    try {
-        const response = await fetch(url);
-        return await response.json();
-    } catch (error) {
-        throw error;
-    }
-}
-const usersArray = [];
-
-// Get users from API and create array
-async function getUsers(url) {
-    const peopleJSON = await getJSON(url);
-
-    const results = peopleJSON.results;
-    for (let i = 0; i < results.length; i++){
-        usersArray.push(results[i])
-    }
+function fetchData(url) {
+    return fetch(url)
+        .then(checkStatus)
+        .then(res => res.json())
+        .catch(error => console.log('Looks like there was a problem', error))
 }
 
+Promise.all([fetchData(userGenerator)])
+.then(data => {
+    const profiles = data[0].results;
+    generatePeople(profiles)
+})
 
 
+function checkStatus(response) {
+    if (response.ok) {
+        return Promise.resolve(response);
+    } else {
+        return Promise.reject(new Error(response.statusText));
+    }
+}
+
+function generatePeople(data) {
+    const date = data[0].dob.date;
+    console.log(date)
+    // const options = data.map(item => `
+    // <option value='${item}'>${item}</option>
+    // `).join('');
+    // select.innerHTML = options;
+}
