@@ -1,6 +1,9 @@
 const userGenerator = 'https://randomuser.me/api/?results=12';
 const fetchUsers = getUsers(userGenerator);
+const body = document.getElementsByTagName('body');
 const gallery = document.getElementById('gallery');
+const cardToClick = document.getElementsByClassName('card');
+
 
 // Handle fetch request
 async function getJSON(url) {
@@ -21,6 +24,7 @@ async function getUsers(url) {
         usersArray.push(results[i])
     }
     generatePeople(usersArray);
+    addClickHandler(usersArray);
 }
 
 // Callback called when data ready
@@ -44,4 +48,47 @@ function generatePeople(data) {
         `)
     });
 }
+
+function generateCloseUp(data, event) {
+    console.log(event.target);
+    console.log(data);
+    const closeUp = document.createElement('div');
+    gallery.appendChild(closeUp);
+    closeUp.insertAdjacentHTML('beforeend', `
+        <div class="modal-container">
+            <div class="modal">
+                <button type="button" id="modal-close-btn" class="modal-close-btn"><strong>X</strong></button>
+                <div class="modal-info-container">
+                    <img class="modal-img" src="https://placehold.it/125x125" alt="profile picture">
+                    <h3 id="name" class="modal-name cap">name</h3>
+                    <p class="modal-text">email</p>
+                    <p class="modal-text cap">city</p>
+                    <hr>
+                    <p class="modal-text">(555) 555-5555</p>
+                    <p class="modal-text">123 Portland Ave., Portland, OR 97204</p>
+                    <p class="modal-text">Birthday: 10/21/2015</p>
+                </div>
+            </div>
+    `)
+}
+
+function addClickHandler(data) {
+    document.querySelectorAll('.card').forEach( card =>
+        card.addEventListener('click', (event) => {
+            console.log(card);
+            generateCloseUp(data, event);
+        })
+    );
+}
+
+
+
+// document.addEventListener('click', async (event) => {
+//     try {
+//         const data = await fetchUsers;
+//         generateCloseUp(data, event);
+//     } catch(e) {
+//         console.error(e);
+//     }
+// });
 
