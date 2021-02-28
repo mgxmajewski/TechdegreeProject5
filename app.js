@@ -26,14 +26,14 @@ async function getUsers(url) {
 // Callback called when data ready
 function generatePeople(data) {
     // const gender = data[0].gender;
-    // console.log(gender);
+    console.log(data);
     data.forEach( person => {
         const personBox = document.createElement('div');
         gallery.appendChild(personBox);
         personBox.insertAdjacentHTML('beforeend', `
             <div class="card">
                 <div class="card-img-container">
-                        <img class="card-img" src="https://placehold.it/90x90" alt="profile picture">
+                        <img class="card-img" src=${person.picture.large} alt="profile picture">
                     </div>
                     <div class="card-info-container">
                         <h3 id="name" class="card-name cap">${person.name.first} ${person.name.last}</h3>
