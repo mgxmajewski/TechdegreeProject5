@@ -25,6 +25,7 @@ async function getUsers(url) {
     }
     generatePeople(usersArray);
     addClickHandler(usersArray);
+
 }
 
 // Callback called when data ready
@@ -50,7 +51,7 @@ function generatePeople(data) {
 }
 
 
-function generateCloseUp(person) {
+function generateModalContainer(person) {
     console.log(person);
     const closeUp = document.createElement('div');
     gallery.appendChild(closeUp);
@@ -87,7 +88,6 @@ function formatBirthdayDate(date){
     return `${birthdayMonth}/${birthdayDay}/${birthdayYear}`
 }
 
-
 // https://stackoverflow.com/questions/8358084/regular-expression-to-reformat-a-us-phone-number-in-javascript
 function formatPhoneNumber(phoneNumberString) {
     const cleaned = ('' + phoneNumberString).replace(/\D/g, '')
@@ -95,16 +95,22 @@ function formatPhoneNumber(phoneNumberString) {
     if (match) {
         return '(' + match[1] + ') ' + match[2] + '-' + match[3]
     }
-    return 'Not valid US number! - ' + phoneNumberString
+    return 'Not a valid US number! - ' + phoneNumberString
 }
 
+function closeClickHandler(div) {
+    const closeX = document.getElementById('modal-close-btn');
+    closeX.addEventListener('click', () => {
+        div.insertAdjacentHTML('beforeend', '');
+    })
+}
 
 function addClickHandler(data) {
     const cardToClick = document.querySelectorAll('.card');
     cardToClick.forEach( (card, index)  =>
         card.addEventListener('click', () => {
             // console.log(card);
-            generateCloseUp(data[index]);
+            generateModalContainer(data[index]);
         })
     );
 }
@@ -114,7 +120,7 @@ function addClickHandler(data) {
 // document.addEventListener('click', async (event) => {
 //     try {
 //         const data = await fetchUsers;
-//         generateCloseUp(data, event);
+//         generateModalContainer(data, event);
 //     } catch(e) {
 //         console.error(e);
 //     }
