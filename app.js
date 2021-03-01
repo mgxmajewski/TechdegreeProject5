@@ -47,7 +47,7 @@ function generatePeople(data) {
 }
 
 
-function generateModalContainer(person) {
+function generateModalContainer(data, index, person) {
     console.log(person);
     const newModalContainer = document.createElement('div');
     gallery.appendChild(newModalContainer);
@@ -81,6 +81,7 @@ function generateModalContainer(person) {
         </div>
     `)
     closeClickHandler();
+    toggleClickHandler(data, index);
 }
 
 function formatBirthdayDate(date){
@@ -101,7 +102,14 @@ function formatPhoneNumber(phoneNumberString) {
 }
 
 
-
+function toggleClickHandler(data, index) {
+    const nextBtn = document.getElementById('modal-next');
+    const prevBtn = document.getElementById('modal-prev');
+    nextBtn.addEventListener('click', () => {
+        console.log(data);
+        console.log(index);
+    })
+}
 
 function closeClickHandler() {
     const closeXbtn = document.getElementById('modal-close-btn');
@@ -116,7 +124,7 @@ function addClickHandler(data) {
     cardToClick.forEach( (card, index)  =>
         card.addEventListener('click', () => {
             // console.log(card);
-            generateModalContainer(data[index]);
+            generateModalContainer(data, index, data[index]);
         })
     );
 }
