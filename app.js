@@ -56,15 +56,10 @@ function generateCloseUp(person) {
     gallery.appendChild(closeUp);
 
     const birthday = person.dob.date;
-    const birthdayDay = birthday.substring(8, 10);
-    const birthdayMonth = birthday.substring(5, 7);
-    const birthdayYear = birthday.substring(0, 4);
-    const birthdayFormatted = `${birthdayMonth}/${birthdayDay}/${birthdayYear}`;
-    console.log(birthday);
+    const birthdayFormatted = formatBirthdayDate(birthday);
 
     const phoneNum = person.cell;
     const phoneNumFormatted =  formatPhoneNumber(phoneNum);
-    console.log(phoneNumFormatted);
 
     closeUp.insertAdjacentHTML('beforeend', `
         <div class="modal-container">
@@ -84,6 +79,15 @@ function generateCloseUp(person) {
             </div>
     `)
 }
+
+function formatBirthdayDate(date){
+    const birthdayDay = date.substring(8, 10);
+    const birthdayMonth = date.substring(5, 7);
+    const birthdayYear = date.substring(0, 4);
+    return `${birthdayMonth}/${birthdayDay}/${birthdayYear}`
+}
+
+
 // https://stackoverflow.com/questions/8358084/regular-expression-to-reformat-a-us-phone-number-in-javascript
 function formatPhoneNumber(phoneNumberString) {
     const cleaned = ('' + phoneNumberString).replace(/\D/g, '')
@@ -91,7 +95,7 @@ function formatPhoneNumber(phoneNumberString) {
     if (match) {
         return '(' + match[1] + ') ' + match[2] + '-' + match[3]
     }
-    return 'Not valid US number! - ' + phoneNum
+    return 'Not valid US number! - ' + phoneNumberString
 }
 
 
