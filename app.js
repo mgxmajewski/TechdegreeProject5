@@ -78,7 +78,9 @@ function generateModalContainer(person) {
                     <p class="modal-text">${birthdayFormatted}</p>
                 </div>
             </div>
+        </div>
     `)
+    closeClickHandler();
 }
 
 function formatBirthdayDate(date){
@@ -98,10 +100,11 @@ function formatPhoneNumber(phoneNumberString) {
     return 'Not a valid US number! - ' + phoneNumberString
 }
 
-function closeClickHandler(div) {
-    const closeX = document.getElementById('modal-close-btn');
-    closeX.addEventListener('click', () => {
-        div.insertAdjacentHTML('beforeend', '');
+function closeClickHandler() {
+    const closeXbtn = document.getElementById('modal-close-btn');
+    const modalContainer = document.querySelector('.modal-container');
+    closeXbtn.addEventListener('click', () => {
+        modalContainer.remove();
     })
 }
 
