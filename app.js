@@ -50,18 +50,22 @@ function generatePeople(data) {
 }
 
 
-
-
 function generateCloseUp(person) {
     console.log(person);
     const closeUp = document.createElement('div');
     gallery.appendChild(closeUp);
+
     const birthday = person.dob.date;
     const birthdayDay = birthday.substring(8, 10);
     const birthdayMonth = birthday.substring(5, 7);
     const birthdayYear = birthday.substring(0, 4);
-    const birthdayFormated = `Birthday: ${birthdayMonth}/${birthdayDay}/${birthdayYear}`;
+    const birthdayFormatted = `${birthdayMonth}/${birthdayDay}/${birthdayYear}`;
     console.log(birthday);
+
+    const phoneNum = person.cell;
+    const phoneNumFormatted =  formatPhoneNumber(phoneNum);
+    console.log(phoneNumFormatted);
+
     closeUp.insertAdjacentHTML('beforeend', `
         <div class="modal-container">
             <div class="modal">
@@ -72,14 +76,24 @@ function generateCloseUp(person) {
                     <p class="modal-text">${person.email}</p>
                     <p class="modal-text cap">${person.location.city}</p>
                     <hr>
-                    <p class="modal-text">${person.cell}</p>
+                    <p class="modal-text">${phoneNumFormatted}</p>
                     <p class="modal-text">${person.location.street.name} ${person.location.street.number},</br> 
                                           ${person.location.state}, ${person.location.postcode}</p>
-                    <p class="modal-text">${birthdayFormated}</p>
+                    <p class="modal-text">${birthdayFormatted}</p>
                 </div>
             </div>
     `)
 }
+// https://stackoverflow.com/questions/8358084/regular-expression-to-reformat-a-us-phone-number-in-javascript
+function formatPhoneNumber(phoneNumberString) {
+    const cleaned = ('' + phoneNumberString).replace(/\D/g, '')
+    const match = cleaned.match(/^(\d{3})(\d{3})(\d{4})$/)
+    if (match) {
+        return '(' + match[1] + ') ' + match[2] + '-' + match[3]
+    }
+    return 'Not valid US number! - ' + phoneNum
+}
+
 
 function addClickHandler(data) {
     const cardToClick = document.querySelectorAll('.card');
