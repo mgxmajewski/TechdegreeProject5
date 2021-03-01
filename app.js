@@ -49,23 +49,33 @@ function generatePeople(data) {
     });
 }
 
-function generateCloseUp(data) {
-    console.log(data);
+
+
+
+function generateCloseUp(person) {
+    console.log(person);
     const closeUp = document.createElement('div');
     gallery.appendChild(closeUp);
+    const birthday = person.dob.date;
+    const birthdayDay = birthday.substring(8, 10);
+    const birthdayMonth = birthday.substring(5, 7);
+    const birthdayYear = birthday.substring(0, 4);
+    const birthdayFormated = `Birthday: ${birthdayMonth}/${birthdayDay}/${birthdayYear}`;
+    console.log(birthday);
     closeUp.insertAdjacentHTML('beforeend', `
         <div class="modal-container">
             <div class="modal">
                 <button type="button" id="modal-close-btn" class="modal-close-btn"><strong>X</strong></button>
                 <div class="modal-info-container">
-                    <img class="modal-img" src="https://placehold.it/125x125" alt="profile picture">
-                    <h3 id="name" class="modal-name cap">name</h3>
-                    <p class="modal-text">email</p>
-                    <p class="modal-text cap">city</p>
+                    <img class="modal-img" src=${person.picture.large}  alt="profile picture">
+                    <h3 id="name" class="modal-name cap">${person.name.first}</h3>
+                    <p class="modal-text">${person.email}</p>
+                    <p class="modal-text cap">${person.location.city}</p>
                     <hr>
-                    <p class="modal-text">(555) 555-5555</p>
-                    <p class="modal-text">123 Portland Ave., Portland, OR 97204</p>
-                    <p class="modal-text">Birthday: 10/21/2015</p>
+                    <p class="modal-text">${person.cell}</p>
+                    <p class="modal-text">${person.location.street.name} ${person.location.street.number},</br> 
+                                          ${person.location.state}, ${person.location.postcode}</p>
+                    <p class="modal-text">${birthdayFormated}</p>
                 </div>
             </div>
     `)
