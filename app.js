@@ -73,15 +73,39 @@ function generateModalContainer(data, index, person) {
                                           ${person.location.state}, ${person.location.postcode}</p>
                     <p class="modal-text">${birthdayFormatted}</p>
                 </div>
-            </div>
-            <div class="modal-btn-container">
-                    <button type="button" id="modal-prev" class="modal-prev btn">Prev</button>
-                    <button type="button" id="modal-next" class="modal-next btn">Next</button>
-            </div>
+            </div> 
         </div>
     `)
     closeClickHandler();
+    generateToggleContainer(data, index);
     toggleClickHandler(data, index);
+}
+
+function generateToggleContainer(data, index) {
+    const modalContainer = document.querySelector('.modal-container');
+    modalContainer.insertAdjacentHTML('beforeend', `
+        <div class="modal-btn-container"></div>
+    `)
+    if (index !== 0) {
+        generatePrevButton();
+    }
+    if (index !== data.length-1) {
+        generateNextButton();
+    }
+}
+
+function generatePrevButton() {
+    const toggleContainer = document.querySelector('.modal-btn-container');
+    toggleContainer.insertAdjacentHTML('beforeend', `
+        <button type="button" id="modal-prev" class="modal-prev btn">Prev</button>
+    `)
+}
+
+function generateNextButton() {
+    const toggleContainer = document.querySelector('.modal-btn-container');
+    toggleContainer.insertAdjacentHTML('beforeend', `
+        <button type="button" id="modal-next" class="modal-next btn">Next</button>
+    `)
 }
 
 function formatBirthdayDate(date){
@@ -105,10 +129,25 @@ function formatPhoneNumber(phoneNumberString) {
 function toggleClickHandler(data, index) {
     const nextBtn = document.getElementById('modal-next');
     const prevBtn = document.getElementById('modal-prev');
-    nextBtn.addEventListener('click', () => {
-        console.log(data);
-        console.log(index);
-    })
+    const modalContainer = document.querySelector('.modal-container');
+    if (nextBtn){
+        nextBtn.addEventListener('click', () => {
+            modalContainer.remove();
+            if (index+1 === data.length-1) {
+                console.log('disabled');
+            }
+            generateModalContainer(data, index+1, data[index+1]);
+        })
+    }
+    if(prevBtn) {
+        prevBtn.addEventListener('click', () => {
+            modalContainer.remove();
+            if (index-1 === 0) {
+                console.log('disabled');
+            }
+            generateModalContainer(data, index-1, data[index-1]);
+        })
+    }
 }
 
 function closeClickHandler() {
