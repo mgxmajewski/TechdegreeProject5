@@ -74,6 +74,10 @@ function generateModalContainer(person) {
                     <p class="modal-text">${birthdayFormatted}</p>
                 </div>
             </div>
+            <div class="modal-btn-container">
+                    <button type="button" id="modal-prev" class="modal-prev btn">Prev</button>
+                    <button type="button" id="modal-next" class="modal-next btn">Next</button>
+            </div>
         </div>
     `)
     closeClickHandler();
