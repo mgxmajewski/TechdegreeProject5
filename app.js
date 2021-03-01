@@ -1,8 +1,5 @@
-const userGenerator = 'https://randomuser.me/api/?results=12';
-const fetchUsers = getUsers(userGenerator);
-const body = document.getElementsByTagName('body');
+const userGenerator = 'https://randomuser.me/api/?results=12&?nat=us';
 const gallery = document.getElementById('gallery');
-
 
 
 // Handle fetch request
@@ -25,7 +22,6 @@ async function getUsers(url) {
     }
     generatePeople(usersArray);
     addClickHandler(usersArray);
-
 }
 
 // Callback called when data ready
@@ -100,6 +96,9 @@ function formatPhoneNumber(phoneNumberString) {
     return 'Not a valid US number! - ' + phoneNumberString
 }
 
+
+
+
 function closeClickHandler() {
     const closeXbtn = document.getElementById('modal-close-btn');
     const modalContainer = document.querySelector('.modal-container');
@@ -118,7 +117,7 @@ function addClickHandler(data) {
     );
 }
 
-
+getUsers(userGenerator);
 
 // document.addEventListener('click', async (event) => {
 //     try {
