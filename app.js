@@ -53,8 +53,8 @@ function generatePeople(data) {
 
 function generateModalContainer(person) {
     console.log(person);
-    const closeUp = document.createElement('div');
-    gallery.appendChild(closeUp);
+    const newModalContainer = document.createElement('div');
+    gallery.appendChild(newModalContainer);
 
     const birthday = person.dob.date;
     const birthdayFormatted = formatBirthdayDate(birthday);
@@ -62,7 +62,7 @@ function generateModalContainer(person) {
     const phoneNum = person.cell;
     const phoneNumFormatted =  formatPhoneNumber(phoneNum);
 
-    closeUp.insertAdjacentHTML('beforeend', `
+    newModalContainer.insertAdjacentHTML('beforeend', `
         <div class="modal-container">
             <div class="modal">
                 <button type="button" id="modal-close-btn" class="modal-close-btn"><strong>X</strong></button>
