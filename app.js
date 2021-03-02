@@ -21,7 +21,7 @@ async function getUsers(url) {
     for (let i = 0; i < results.length; i++){
         usersArray.push(results[i])
     }
-    generateSearchContainer();
+    generateSearchContainer(usersArray);
     generatePeople(usersArray);
     addClickHandler(usersArray);
 }
@@ -41,7 +41,7 @@ function generatePeople(data) {
                     <div class="card-info-container">
                         <h3 id="name" class="card-name cap">${person.name.first} ${person.name.last}</h3>
                         <p class="card-text">${person.email}</p>
-                        <p class="card-text cap">${person.location.city}, ${person.location.state}</p>
+                        <p class="card-text cap">${person.location.city}</p>
                     </div> 
             </div>
         `)
@@ -170,7 +170,7 @@ function addClickHandler(data) {
     );
 }
 
-function generateSearchContainer(){
+function generateSearchContainer(data){
     const search = document.querySelector('.search-container');
     search.insertAdjacentHTML('beforeend', `
         <form action="#" method="get">
