@@ -2,6 +2,7 @@ const userGenerator = 'https://randomuser.me/api/?results=12&?nat=us';
 const gallery = document.getElementById('gallery');
 
 
+
 // Handle fetch request
 async function getJSON(url) {
     try {
@@ -20,6 +21,7 @@ async function getUsers(url) {
     for (let i = 0; i < results.length; i++){
         usersArray.push(results[i])
     }
+    generateSearchContainer();
     generatePeople(usersArray);
     addClickHandler(usersArray);
 }
@@ -166,6 +168,16 @@ function addClickHandler(data) {
             generateModalContainer(data, index, data[index]);
         })
     );
+}
+
+function generateSearchContainer(){
+    const search = document.querySelector('.search-container');
+    search.insertAdjacentHTML('beforeend', `
+        <form action="#" method="get">
+            <input type="search" id="search-input" class="search-input" placeholder="Search...">
+            <input type="submit" value="&#x1F50D;" id="search-submit" class="search-submit">
+        </form>
+    `)
 }
 
 getUsers(userGenerator);
