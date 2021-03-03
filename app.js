@@ -170,6 +170,13 @@ function addClickHandler(data) {
     );
 }
 
+function searchKeyUpHandler(data){
+    const searchInput = document.getElementById('search-input');
+    searchInput.addEventListener('keydown', (e) =>{
+        console.log(e.key);
+    })
+};
+
 function generateSearchContainer(data){
     const search = document.querySelector('.search-container');
     search.insertAdjacentHTML('beforeend', `
@@ -178,16 +185,8 @@ function generateSearchContainer(data){
             <input type="submit" value="&#x1F50D;" id="search-submit" class="search-submit">
         </form>
     `)
+    searchKeyUpHandler(data);
 }
 
 getUsers(userGenerator);
-
-// document.addEventListener('click', async (event) => {
-//     try {
-//         const data = await fetchUsers;
-//         generateModalContainer(data, event);
-//     } catch(e) {
-//         console.error(e);
-//     }
-// });
 
