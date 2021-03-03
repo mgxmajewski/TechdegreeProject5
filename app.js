@@ -172,10 +172,12 @@ function addClickHandler(data) {
 
 function searchKeyUpHandler(data){
     const searchInput = document.getElementById('search-input');
+    let userSearchInput = [];
     searchInput.addEventListener('keydown', (e) =>{
-        console.log(e.key);
+        console.log(searchInput.value);
+        userSearchInput.push(searchInput.value);
     })
-};
+}
 
 function generateSearchContainer(data){
     const search = document.querySelector('.search-container');
