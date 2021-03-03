@@ -172,10 +172,15 @@ function addClickHandler(data) {
 
 function searchKeyUpHandler(data){
     const searchInput = document.getElementById('search-input');
-    let userSearchInput = [];
     searchInput.addEventListener('keydown', (e) =>{
+        let searchValue = searchInput.value;
         console.log(searchInput.value);
-        userSearchInput.push(searchInput.value);
+        console.log(data.length);
+        data.forEach( person => {
+            if (searchValue == person.name.first){
+                console.log('MATCH');
+            }
+        });
     })
 }
 
