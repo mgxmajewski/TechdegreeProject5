@@ -29,11 +29,9 @@ async function getUsers(url) {
 // Callback called when data ready
 function generatePeople(data) {
     // const gender = data[0].gender;
-    const galleryDiv = document.querySelector('#gallery');
     //console.log(data);
     data.forEach( person => {
-        // gallery.appendChild(personBox);
-        galleryDiv.insertAdjacentHTML('beforeend', `
+         gallery.insertAdjacentHTML('beforeend', `
             <div class="card">
                 <div class="card-img-container">
                         <img class="card-img" src=${person.picture.large} alt="profile picture">
