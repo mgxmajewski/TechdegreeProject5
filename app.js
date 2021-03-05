@@ -1,7 +1,7 @@
 const userGenerator = 'https://randomuser.me/api/?results=12&?nat=us';
 const gallery = document.getElementById('gallery');
-
-
+const body = document.getElementsByTagName('body');
+console.log(body);
 
 // Handle fetch request
 async function getJSON(url) {
@@ -32,6 +32,7 @@ function generatePeople(data) {
     //console.log(data);
     data.forEach( person => {
         const personBox = document.createElement('div');
+        // gallery.appendChild(personBox);
         gallery.appendChild(personBox);
         personBox.insertAdjacentHTML('beforeend', `
             <div class="card">
@@ -52,6 +53,7 @@ function generatePeople(data) {
 function generateModalContainer(data, index, person) {
     console.log(person);
     const newModalContainer = document.createElement('div');
+    // gallery.appendChild(newModalContainer);
     gallery.appendChild(newModalContainer);
 
     const birthday = person.dob.date;
@@ -60,7 +62,7 @@ function generateModalContainer(data, index, person) {
     const phoneNum = person.cell;
     const phoneNumFormatted =  formatPhoneNumber(phoneNum);
 
-    newModalContainer.insertAdjacentHTML('beforeend', `
+    newModalContainer.insertAdjacentHTML('afterend', `
         <div class="modal-container">
             <div class="modal">
                 <button type="button" id="modal-close-btn" class="modal-close-btn"><strong>X</strong></button>
@@ -78,6 +80,8 @@ function generateModalContainer(data, index, person) {
             </div> 
         </div>
     `)
+
+    newModalContainer.style.display = 'none';
     closeClickHandler();
     generateToggleContainer(data, index);
     toggleClickHandler(data, index);
