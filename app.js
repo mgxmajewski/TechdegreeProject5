@@ -44,6 +44,7 @@ function generatePeople(data) {
             </div>
         `)
     });
+    // gallery.style.display = 'none';
 }
 
 
@@ -173,16 +174,35 @@ function addClickHandler(data) {
 
 function searchKeyUpHandler(data){
     const searchInput = document.getElementById('search-input');
-    searchInput.addEventListener('keyup', (e) =>{
+    let filteredArray = [];
+    searchInput.addEventListener('keyup', () =>{
+        gallery.innerHTML = '';
         let searchValue = searchInput.value;
+        let searchLength = searchValue.length;
         console.log(searchInput.value);
         console.log(data.length);
         data.forEach( person => {
-            if (searchValue == person.name.first || searchValue == person.name.last){
-                console.log('MATCH');
+            let lastNameMatch = person.name.last.toLowerCase().includes(searchValue.toLowerCase());
+            let firstNameMatch = person.name.first.toLowerCase().includes(searchValue.toLowerCase());
+            if (searchLength !== 0 && lastNameMatch || searchLength !==0 && firstNameMatch) {
+                filteredArray.push(person);
+                console.log(filteredArray);
+                generatePeople(filteredArray);
+                filteredArray = [];
+            } else if (searchLength ===0) {
+                filteredArray.push(person);
+                console.log(filteredArray);
+                generatePeople(filteredArray);
+                filteredArray = [];
             }
         });
+
     })
+}
+
+function clearBox(elementID)
+{
+    document.getElementById(elementID).innerHTML = "";
 }
 
 function generateSearchContainer(data){
