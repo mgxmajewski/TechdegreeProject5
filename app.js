@@ -45,7 +45,6 @@ function generatePeople(data) {
 
 // Render modal container
 function generateModalContainer(data, index, person) {
-    console.log(person);
     const newModalContainer = document.createElement('div');
     gallery.appendChild(newModalContainer);
 
@@ -136,18 +135,12 @@ function toggleClickHandler(data, index) {
     if (nextBtn){
         nextBtn.addEventListener('click', () => {
             modalContainer.remove();
-            if (index+1 === data.length-1) {
-                console.log('disabled');
-            }
             generateModalContainer(data, index+1, data[index+1]);
         })
     }
     if(prevBtn) {
         prevBtn.addEventListener('click', () => {
             modalContainer.remove();
-            if (index-1 === 0) {
-                console.log('disabled');
-            }
             generateModalContainer(data, index-1, data[index-1]);
         })
     }
@@ -167,7 +160,6 @@ function addClickHandler(data) {
     const cardToClick = document.querySelectorAll('.card');
     cardToClick.forEach( (card, index)  =>
         card.addEventListener('click', () => {
-            // console.log(card);
             generateModalContainer(data, index, data[index]);
         })
     );
@@ -187,10 +179,12 @@ function searchKeyUpHandler(data){
             if (searchLength !== 0 && lastNameMatch || searchLength !==0 && firstNameMatch) {
                 filteredArray.push(person);
                 generatePeople(filteredArray);
+                addClickHandler(filteredArray);
                 filteredArray = [];
             } else if (searchLength ===0) {
                 filteredArray.push(person);
                 generatePeople(filteredArray);
+                addClickHandler(filteredArray);
                 filteredArray = [];
             }
         });
