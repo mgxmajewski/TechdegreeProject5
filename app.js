@@ -173,12 +173,12 @@ function addClickHandler(data) {
 
 function searchKeyUpHandler(data){
     const searchInput = document.getElementById('search-input');
-    searchInput.addEventListener('keydown', (e) =>{
+    searchInput.addEventListener('keyup', (e) =>{
         let searchValue = searchInput.value;
         console.log(searchInput.value);
         console.log(data.length);
         data.forEach( person => {
-            if (searchValue == person.name.first){
+            if (searchValue == person.name.first || searchValue == person.name.last){
                 console.log('MATCH');
             }
         });
@@ -197,4 +197,3 @@ function generateSearchContainer(data){
 }
 
 getUsers(userGenerator);
-
