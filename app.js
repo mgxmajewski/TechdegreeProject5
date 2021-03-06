@@ -28,8 +28,6 @@ async function getUsers(url) {
 
 // Callback called when data ready
 function generatePeople(data) {
-    // const gender = data[0].gender;
-    //console.log(data);
     data.forEach( person => {
          gallery.insertAdjacentHTML('beforeend', `
             <div class="card">
@@ -44,14 +42,12 @@ function generatePeople(data) {
             </div>
         `)
     });
-    // gallery.style.display = 'none';
 }
 
 
 function generateModalContainer(data, index, person) {
     console.log(person);
     const newModalContainer = document.createElement('div');
-    // gallery.appendChild(newModalContainer);
     gallery.appendChild(newModalContainer);
 
     const birthday = person.dob.date;
@@ -198,11 +194,6 @@ function searchKeyUpHandler(data){
         });
 
     })
-}
-
-function clearBox(elementID)
-{
-    document.getElementById(elementID).innerHTML = "";
 }
 
 function generateSearchContainer(data){
