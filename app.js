@@ -1,4 +1,4 @@
-const userGenerator = 'https://randomuser.me/api/?results=12&?nat=us';
+const userGenerator = 'https://randomuser.me/api/?results=12&nat=us';
 const gallery = document.getElementById('gallery');
 
 // Handle fetch request
@@ -26,7 +26,6 @@ async function getUsers(url) {
 
 // Callback called when data ready
 function generatePeople(data) {
-
     data.forEach( person => {
          gallery.insertAdjacentHTML('beforeend', `
             <div class="card">
@@ -190,12 +189,12 @@ function searchKeyUpHandler() {
 }
 
 // Add search bar
-function generateSearchContainer(){
+function generateSearchContainer() {
     const search = document.querySelector('.search-container');
     search.insertAdjacentHTML('beforeend', `
         <form action="#" method="get">
             <input type="search" id="search-input" class="search-input" placeholder="Search...">
-            <input type="submit" value="&#x1F50D;" id="search-submit" class="search-submit">
+            <!--<input type="submit" value="&#x1F50D;" id="search-submit" class="search-submit">-->
         </form>
     `)
     searchKeyUpHandler();
