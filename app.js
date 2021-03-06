@@ -19,14 +19,16 @@ async function getUsers(url) {
     for (let i = 0; i < results.length; i++){
         usersArray.push(results[i])
     }
-    generateSearchContainer(usersArray);
     generatePeople(usersArray);
     addClickHandler(usersArray);
+    generateSearchContainer();
 }
 
 // Callback called when data ready
 function generatePeople(data) {
+
     data.forEach( person => {
+        // gallery.innerHTML = ''
          gallery.insertAdjacentHTML('beforeend', `
             <div class="card">
                 <div class="card-img-container">
@@ -39,7 +41,10 @@ function generatePeople(data) {
                     </div> 
             </div>
         `)
-    });
+    },
+
+        );
+    // gallery.innerHTML = ''
 }
 
 
@@ -166,33 +171,30 @@ function addClickHandler(data) {
 }
 
 // Dynamically filter users
-function searchKeyUpHandler(data){
+function searchKeyUpHandler() {
     const searchInput = document.getElementById('search-input');
-    let filteredArray = [];
+    const names = document.querySelectorAll('#name');
     searchInput.addEventListener('keyup', () =>{
-        gallery.innerHTML = '';
+        console.log(names);
         let searchValue = searchInput.value;
         let searchLength = searchValue.length;
-        data.forEach( person => {
-            let lastNameMatch = person.name.last.toLowerCase().includes(searchValue.toLowerCase());
-            let firstNameMatch = person.name.first.toLowerCase().includes(searchValue.toLowerCase());
-            if (searchLength !== 0 && lastNameMatch || searchLength !==0 && firstNameMatch) {
-                filteredArray.push(person);
-                generatePeople(filteredArray);
-                addClickHandler(filteredArray);
-                filteredArray = [];
-            } else if (searchLength ===0) {
-                filteredArray.push(person);
-                generatePeople(filteredArray);
-                addClickHandler(filteredArray);
-                filteredArray = [];
+        names.forEach( person => {
+            console.log(person);
+            const personDiv = person.parentElement.parentElement;
+            let nameMatch = person.textContent.toLowerCase().includes(searchValue.toLowerCase());
+            if (searchLength !== 0 && nameMatch) {
+                personDiv.style.display = 'none';
+            } else if (searchLength === 0) {
+                personDiv.style.display = '';
+            } else {
+                personDiv.style.display = '';
             }
         });
     })
 }
 
 // Add search bar
-function generateSearchContainer(data){
+function generateSearchContainer(){
     const search = document.querySelector('.search-container');
     search.insertAdjacentHTML('beforeend', `
         <form action="#" method="get">
@@ -200,7 +202,7 @@ function generateSearchContainer(data){
             <input type="submit" value="&#x1F50D;" id="search-submit" class="search-submit">
         </form>
     `)
-    searchKeyUpHandler(data);
+    searchKeyUpHandler();
 }
 
 getUsers(userGenerator);
