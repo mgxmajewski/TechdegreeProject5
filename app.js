@@ -28,7 +28,6 @@ async function getUsers(url) {
 function generatePeople(data) {
 
     data.forEach( person => {
-        // gallery.innerHTML = ''
          gallery.insertAdjacentHTML('beforeend', `
             <div class="card">
                 <div class="card-img-container">
@@ -44,7 +43,6 @@ function generatePeople(data) {
     },
 
         );
-    // gallery.innerHTML = ''
 }
 
 
@@ -175,19 +173,17 @@ function searchKeyUpHandler() {
     const searchInput = document.getElementById('search-input');
     const names = document.querySelectorAll('#name');
     searchInput.addEventListener('keyup', () =>{
-        console.log(names);
         let searchValue = searchInput.value;
         let searchLength = searchValue.length;
         names.forEach( person => {
-            console.log(person);
             const personDiv = person.parentElement.parentElement;
             let nameMatch = person.textContent.toLowerCase().includes(searchValue.toLowerCase());
             if (searchLength !== 0 && nameMatch) {
-                personDiv.style.display = 'none';
+                personDiv.style.display = '';
             } else if (searchLength === 0) {
                 personDiv.style.display = '';
             } else {
-                personDiv.style.display = '';
+                personDiv.style.display = 'none';
             }
         });
     })
