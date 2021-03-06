@@ -1,7 +1,5 @@
 const userGenerator = 'https://randomuser.me/api/?results=12&?nat=us';
 const gallery = document.getElementById('gallery');
-const body = document.getElementsByTagName('body');
-console.log(body);
 
 // Handle fetch request
 async function getJSON(url) {
@@ -45,6 +43,7 @@ function generatePeople(data) {
 }
 
 
+// Render modal container
 function generateModalContainer(data, index, person) {
     console.log(person);
     const newModalContainer = document.createElement('div');
@@ -74,13 +73,14 @@ function generateModalContainer(data, index, person) {
             </div> 
         </div>
     `)
-
     newModalContainer.style.display = 'none';
     closeClickHandler();
     generateToggleContainer(data, index);
     toggleClickHandler(data, index);
 }
 
+
+// Render toggle container
 function generateToggleContainer(data, index) {
     const modalContainer = document.querySelector('.modal-container');
     modalContainer.insertAdjacentHTML('beforeend', `
@@ -94,6 +94,7 @@ function generateToggleContainer(data, index) {
     }
 }
 
+// Render buttons
 function generatePrevButton() {
     const toggleContainer = document.querySelector('.modal-btn-container');
     toggleContainer.insertAdjacentHTML('beforeend', `
@@ -108,6 +109,7 @@ function generateNextButton() {
     `)
 }
 
+// Format birthday
 function formatBirthdayDate(date){
     const birthdayDay = date.substring(8, 10);
     const birthdayMonth = date.substring(5, 7);
@@ -115,6 +117,7 @@ function formatBirthdayDate(date){
     return `${birthdayMonth}/${birthdayDay}/${birthdayYear}`
 }
 
+// Format phone number
 // https://stackoverflow.com/questions/8358084/regular-expression-to-reformat-a-us-phone-number-in-javascript
 function formatPhoneNumber(phoneNumberString) {
     const cleaned = ('' + phoneNumberString).replace(/\D/g, '')
@@ -125,7 +128,7 @@ function formatPhoneNumber(phoneNumberString) {
     return 'Not a valid US number! - ' + phoneNumberString
 }
 
-
+// Handle buttons to switch profiles
 function toggleClickHandler(data, index) {
     const nextBtn = document.getElementById('modal-next');
     const prevBtn = document.getElementById('modal-prev');
@@ -150,6 +153,7 @@ function toggleClickHandler(data, index) {
     }
 }
 
+// Close modal container
 function closeClickHandler() {
     const closeXbtn = document.getElementById('modal-close-btn');
     const modalContainer = document.querySelector('.modal-container');
@@ -158,6 +162,7 @@ function closeClickHandler() {
     })
 }
 
+// Add listeners to open modal container
 function addClickHandler(data) {
     const cardToClick = document.querySelectorAll('.card');
     cardToClick.forEach( (card, index)  =>
@@ -168,6 +173,7 @@ function addClickHandler(data) {
     );
 }
 
+// Dynamically filter users
 function searchKeyUpHandler(data){
     const searchInput = document.getElementById('search-input');
     let filteredArray = [];
@@ -175,27 +181,23 @@ function searchKeyUpHandler(data){
         gallery.innerHTML = '';
         let searchValue = searchInput.value;
         let searchLength = searchValue.length;
-        console.log(searchInput.value);
-        console.log(data.length);
         data.forEach( person => {
             let lastNameMatch = person.name.last.toLowerCase().includes(searchValue.toLowerCase());
             let firstNameMatch = person.name.first.toLowerCase().includes(searchValue.toLowerCase());
             if (searchLength !== 0 && lastNameMatch || searchLength !==0 && firstNameMatch) {
                 filteredArray.push(person);
-                console.log(filteredArray);
                 generatePeople(filteredArray);
                 filteredArray = [];
             } else if (searchLength ===0) {
                 filteredArray.push(person);
-                console.log(filteredArray);
                 generatePeople(filteredArray);
                 filteredArray = [];
             }
         });
-
     })
 }
 
+// Add search bar
 function generateSearchContainer(data){
     const search = document.querySelector('.search-container');
     search.insertAdjacentHTML('beforeend', `
